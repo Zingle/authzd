@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Zingle/authzd#readme",
   "dependencies": {
     "@zingle/authz-jwt": "0.0.1",
+    "@zingle/authz-local": "0.0.1",
     "@zingle/authz-sdk": "0.0.2",
     "@zingle/authzd-theme": "0.0.1",
     "cors": "^2.8.5",

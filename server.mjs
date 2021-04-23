@@ -8,6 +8,7 @@ import morgan from "morgan";
 import tlsopt from "tlsopt";
 import {AuthZ} from "@zingle/authz";
 import jwtStrategy from "@zingle/authz-jwt";
+import localStrategy from "@zingle/authz-local";
 
 const app = express();
 const server = tlsopt.createServerSync(app);
@@ -19,6 +20,7 @@ const version = getVersion();
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
+passport.use("local", localStrategy());
 passport.use("jwt", jwtStrategy({secret, issuer: iss}));
 
 app.set("views", getViewPath());
@@ -39,7 +41,7 @@ app.get("/", (req, res) => res.send(`authzd v${version}\n`));
 app.get("/token", authz.authenticate("jwt"), authz.userInfo());
 
 // token generation endpoints
-// app.get("/STRATEGY/token", auth.authenticate(STRATEGY), authz.sign(iss));
+app.get("/local/token", authz.authenticate("local"), authz.sign(iss));
 
 // oauth handoffs
 // app.get("/PROVIDER", authz.oauth("PROVIDER", ["email"], authz.requestState()));
