@@ -7,6 +7,7 @@ import cors from "cors";
 import morgan from "morgan";
 import tlsopt from "tlsopt";
 import {AuthZ} from "@zingle/authz";
+import jwtStrategy from "@zingle/authz-jwt";
 
 const app = express();
 const server = tlsopt.createServerSync(app);
@@ -18,6 +19,7 @@ const version = getVersion();
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
+passport.use("jwt", jwtStrategy({secret, issuer: iss}));
 
 app.set("views", getViewPath());
 app.set("view engine", "pug");
