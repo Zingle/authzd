@@ -7,6 +7,7 @@ import cors from "cors";
 import morgan from "morgan";
 import tlsopt from "tlsopt";
 import {AuthZ} from "@zingle/authz";
+import googleStrategy from "@zingle/authz-google";
 import jwtStrategy from "@zingle/authz-jwt";
 import localStrategy from "@zingle/authz-local";
 
@@ -15,6 +16,9 @@ const server = tlsopt.createServerSync(app);
 const port = Number(process.env.LISTEN_PORT || (server.tls ? 443 : 80));
 const secret = process.env.SECRET || "sekret";
 const iss = process.env.ISS || hostname();
+const clientID = process.env.GOOGLE_CLIENT_ID;
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+const callbackURL = new URL(process.env.GOOGLE_CALLBACK_URL);
 const authz = new AuthZ({passport, secret});
 const version = getVersion();
 
@@ -22,6 +26,7 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 passport.use("local", localStrategy());
 passport.use("jwt", jwtStrategy({secret, issuer: iss}));
+passport.use("google", googleStrategy({clientID, clientSecret, callbackURL}));
 
 app.set("views", getViewPath());
 app.set("view engine", "pug");
@@ -42,9 +47,10 @@ app.get("/token", authz.authenticate("jwt"), authz.userInfo());
 
 // token generation endpoints
 app.get("/local/token", authz.authenticate("local"), authz.sign(iss));
+app.get("/google/token", authz.authenticate("google"), authz.sign(iss));
 
 // oauth handoffs
-// app.get("/PROVIDER", authz.oauth("PROVIDER", ["email"], authz.requestState()));
+app.get("/google", authz.oauth("google", ["email"], authz.requestState()));
 
 server.listen(port, () => {
     console.info(`authz daemon listening on port ${port}`);

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Zingle/authzd#readme",
   "dependencies": {
+    "@zingle/authz-google": "0.0.1",
     "@zingle/authz-jwt": "0.0.1",
     "@zingle/authz-local": "0.0.1",
     "@zingle/authz-sdk": "0.0.2",
