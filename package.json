@@ -1,0 +1,37 @@
+{
+  "name": "@zingle/authzd",
+  "version": "0.0.1",
+  "description": "Zingle authentication service",
+  "scripts": {
+    "start": "node --experimental-modules server.mjs",
+    "test": "node --experimental-modules node_modules/.bin/_mocha --color"
+  },
+  "directories": {
+    "bin": "bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Zingle/authzd.git"
+  },
+  "author": "Richard Remer <reanjr@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Zingle/authzd/issues"
+  },
+  "homepage": "https://github.com/Zingle/authzd#readme",
+  "dependencies": {
+    "@zingle/authz-sdk": "0.0.2",
+    "@zingle/authzd-theme": "0.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "ip-cidr": "^2.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-custom": "^1.1.1",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-jwt": "^4.0.0",
+    "pug": "^3.0.2",
+    "tlsopt": "^3.1.0"
+  }
+}

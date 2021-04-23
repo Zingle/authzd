@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Returning token
+  body
+    span Returning token
+    input(type="hidden", id="jwt", value=jwt)
+    script(type="module").
+      import {returnJWT} from "/sdk/latest/authz-sdk.js";
+      const jwt = document.getElementById("jwt").value;
+
+      if (window.opener) {
+        console.log("returning", jwt);
+        returnJWT(jwt);
+      } else console.info(jwt);
