@@ -9,6 +9,21 @@ Environment Variables
 This section describes the environment variables recognized by the **authzd**
 daemon.
 
+#### ISS
+JWT issuer.  The current host name will be used as the default.
+
+#### GOOGLE_CALLBACK_URL
+URL to return to after successful authentication using Google OAuth.  This
+should match the URL of the authz daemon server, but the path set to
+"/google/token".  The Google OAuth application must be configured to allow this
+callback URL.
+
+#### GOOGLE_CLIENT_ID
+The Google OAuth application client ID.
+
+#### GOOGLE_CLIENT_SECRET
+The Google OAuth application client secret.
+
 #### LISTEN_PORT
 TCP port to listen on for incoming connections.  If a TLS certificate is
 configured, the default port is **443**; otherwise, the default port is **80**.
